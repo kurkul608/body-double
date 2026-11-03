@@ -1,4 +1,5 @@
 import { getDb } from '../db.js';
+import { modelCacheDir } from '../paths.js';
 
 type FeatureExtractor = (
   text: string,
@@ -11,7 +12,8 @@ let extractorPromise: Promise<FeatureExtractor> | null = null;
 async function getExtractor(): Promise<FeatureExtractor> {
   if (!extractorPromise) {
     extractorPromise = (async () => {
-      const { pipeline } = await import('@huggingface/transformers');
+      const { pipeline, env } = await import('@huggingface/transformers');
+      env.cacheDir = modelCacheDir;
       const pipe = await pipeline('feature-extraction', 'Xenova/all-MiniLM-L6-v2');
       return pipe as unknown as FeatureExtractor;
     })();

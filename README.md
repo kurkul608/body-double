@@ -93,6 +93,46 @@ The server does not serve the client build yet, so there is no production
 `start` command. The first chat message downloads a small embedding model
 to a local cache.
 
+## Deploy with Docker
+
+Run Body Double on a server (a VPS) with Docker Compose. Requirements: Docker
+with the Compose plugin.
+
+1. Create `.env` and your profile, as in Quickstart steps 2 and 3.
+
+2. Create a login for the web UI. Nginx asks for it on every page and API call.
+
+   ```bash
+   htpasswd -c deploy/.htpasswd <user>
+   # or, without apache2-utils:
+   printf '<user>:%s\n' "$(openssl passwd -apr1)" > deploy/.htpasswd
+   ```
+
+3. Let the container user (uid 1000) write the data and profile folders.
+
+   ```bash
+   mkdir -p data && sudo chown -R 1000:1000 data profile
+   ```
+
+4. Build and start.
+
+   ```bash
+   docker compose up -d --build
+   ```
+
+5. Pull the course outline.
+
+   ```bash
+   docker compose exec server node dist/cli/sync.js
+   ```
+
+6. Open `http://<host>:8080`. Set `WEB_PORT` to use another port.
+
+SQLite, the embedding model cache, and your profile stay on the host in
+`data/` and `profile/`. For HTTPS, put a reverse proxy with TLS (Caddy,
+Traefik, or nginx with certbot) in front of port 8080, and do not publish
+8080 to the internet without it.
+
 ## Configuration
 
 All settings live in `.env`. The template is `.env.example`.
@@ -103,6 +143,7 @@ All settings live in `.env`. The template is `.env.example`.
 | `TUTOR_MODEL` | `opus` | Model for the tutor chat. |
 | `UTIL_MODEL` | `sonnet` | Model for lesson rewrites and lesson summaries. |
 | `PORT` | `3111` | Port of the API server. |
+| `HOST` | `127.0.0.1` | Bind address of the API server. Docker sets `0.0.0.0`. |
 
 **Models.** Both model variables take an alias or a full model ID.
 
@@ -149,7 +190,7 @@ database stays the only record of progress.
  Browser (Vite + React)
         |  HTTP + SSE (/api)
         v
- Server (Fastify, 127.0.0.1:PORT)
+ Server (Fastify, HOST:PORT)
    |-- Tutor: Claude Agent SDK + in-process MCP tools  --> Anthropic API
    |-- SQLite (better-sqlite3): data/learn.db
    |-- RAG: transformers.js embeddings, local
@@ -175,8 +216,9 @@ The server/client API contract is in [`SPEC.md`](SPEC.md).
 ## Limitations
 
 1. One learner per install. There are no user accounts.
-2. The web UI has no authentication. The server listens on `127.0.0.1` only.
-   Do not expose it to the internet as it is.
+2. The app has no user accounts or login of its own. Locally, the server
+   listens on `127.0.0.1` only. The Docker deploy adds nginx basic auth in
+   front of it; do not expose the server without it.
 3. Only one course is supported for now: AI Engineering from Scratch.
 4. You need an Anthropic API key, and API usage is paid.
 5. Your data is stored locally, but chat content goes to the Anthropic API to

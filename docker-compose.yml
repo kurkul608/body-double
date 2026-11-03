@@ -1,0 +1,25 @@
+services:
+  server:
+    build:
+      context: .
+      target: server
+    env_file: .env
+    environment:
+      HOST: 0.0.0.0
+      PORT: 3111
+    volumes:
+      - ./data:/app/data
+      - ./profile:/app/profile
+    restart: unless-stopped
+
+  web:
+    build:
+      context: .
+      target: web
+    ports:
+      - "${WEB_PORT:-8080}:80"
+    volumes:
+      - ./deploy/.htpasswd:/etc/nginx/.htpasswd:ro
+    depends_on:
+      - server
+    restart: unless-stopped

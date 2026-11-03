@@ -8,7 +8,7 @@ if (!process.env.ANTHROPIC_API_KEY) {
 }
 
 try {
-  await app.listen({ port: env.port, host: '127.0.0.1' });
+  await app.listen({ port: env.port, host: env.host });
 } catch (err) {
   app.log.error(err);
   process.exit(1);

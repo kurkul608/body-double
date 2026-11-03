@@ -7,6 +7,7 @@ export const env = {
   tutorModel: process.env.TUTOR_MODEL || 'opus',
   utilModel: process.env.UTIL_MODEL || 'sonnet',
   port: Number(process.env.PORT) || 3111,
+  host: process.env.HOST || '127.0.0.1',
 };
 
 export const MISSING_API_KEY_WARNING =
