@@ -26,7 +26,7 @@ It stays with you through each lesson, tracks where you are, and tells you the n
 - **Memory:** lesson summaries and local search over past chats.
 - **Local data:** SQLite, synced with your `LEARNING.md`.
 
-<!-- TODO: screenshot / GIF -->
+![Body Double lesson view: lesson text on the left, tutor chat on the right](docs/screenshot.jpg)
 
 ## Quickstart
 
