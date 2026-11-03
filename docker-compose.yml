@@ -17,9 +17,7 @@ services:
       context: .
       target: web
     ports:
-      - "${WEB_PORT:-8080}:80"
-    volumes:
-      - ./deploy/.htpasswd:/etc/nginx/.htpasswd:ro
+      - "127.0.0.1:${WEB_PORT:-8080}:80"
     depends_on:
       - server
     restart: unless-stopped

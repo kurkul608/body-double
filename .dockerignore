@@ -6,7 +6,6 @@ data
 .env.*
 !.env.example
 profile/LEARNING.md
-deploy/.htpasswd
 .git
 .github
 .DS_Store

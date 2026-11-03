@@ -72,36 +72,28 @@ Run it on a server with Docker and the Compose plugin.
 
 1. Create `.env` and your profile, as in Quickstart steps 2 and 3.
 
-2. Create a login. Nginx asks for it on every request.
-
-   ```bash
-   htpasswd -c deploy/.htpasswd <user>
-   # or, without apache2-utils:
-   printf '<user>:%s\n' "$(openssl passwd -apr1)" > deploy/.htpasswd
-   ```
-
-3. Give the container user (uid 1000) write access.
+2. Give the container user (uid 1000) write access.
 
    ```bash
    mkdir -p data && sudo chown -R 1000:1000 data profile
    ```
 
-4. Build and start.
+3. Build and start.
 
    ```bash
    docker compose up -d --build
    ```
 
-5. Pull the course outline.
+4. Pull the course outline.
 
    ```bash
    docker compose exec server node dist/cli/sync.js
    ```
 
-6. Open `http://<host>:8080`. Set `WEB_PORT` to use another port.
+5. Open `http://localhost:8080` on the same host. Set `WEB_PORT` to use another port.
 
 Data stays on the host in `data/` and `profile/`.
-For HTTPS, put a TLS reverse proxy (Caddy, Traefik, nginx + certbot) in front of port 8080. Do not expose 8080 without it.
+The app has no login, and anyone who reaches it spends your Anthropic key. Port 8080 binds to `127.0.0.1` for that reason. To reach it from other machines, put a reverse proxy (Caddy, Traefik, nginx) with authentication and TLS in front of it.
 
 ## Configuration
 
@@ -190,7 +182,7 @@ The server/client API contract is in [`SPEC.md`](SPEC.md).
 
 ## Limitations
 
-1. One learner per install, with no accounts or login. Locally the server listens on `127.0.0.1` only; Docker adds nginx basic auth.
+1. One learner per install, with no accounts or login. Locally the server listens on `127.0.0.1` only. Docker publishes port 8080 on `127.0.0.1` too, with no authentication; add it in a reverse proxy.
 2. Only one course is supported for now: AI Engineering from Scratch.
 3. You need an Anthropic API key, and API usage is paid.
 4. Data is stored locally, but chat content goes to the Anthropic API.
