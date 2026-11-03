@@ -61,7 +61,7 @@ export function TabsTrigger({ value, className, ...props }: TabsTriggerProps) {
       onClick={() => ctx.onValueChange(value)}
       className={cn(
         'rounded-md px-3 py-1.5 text-sm font-medium transition-colors',
-        active ? 'bg-card text-ink shadow-sm' : 'text-ink-soft hover:text-ink',
+        active ? 'bg-card text-ink shadow-xs' : 'text-ink-soft hover:text-ink',
         className,
       )}
       {...props}

@@ -8,7 +8,7 @@ built for learners with ADHD. This file is the contract between `server/` and
 ## Workspace
 
 - pnpm workspace at the project root: `server/` + `client/`. Use pnpm only.
-- Node 20+, TypeScript everywhere, ESM.
+- Node 26+, TypeScript everywhere, ESM.
 - Nothing reads or writes outside the project root.
 
 ## Files and paths
@@ -134,7 +134,7 @@ English at the profile's level, numbered sections, checkpoints, LaTeX math).
 
 ## Client (`client/`)
 
-- Vite + React 18 + TypeScript + Tailwind + shadcn/ui-style components.
+- Vite + React 19 + TypeScript + Tailwind + shadcn/ui-style components.
   react-markdown + remark-gfm, KaTeX for math, Mermaid diagrams.
 - Dev proxy `/api` → `http://localhost:3111`.
 - localStorage keys use the `body-double:` prefix.

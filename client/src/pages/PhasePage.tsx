@@ -77,7 +77,7 @@ export function PhasePage() {
                 className={cn(
                   'flex items-center gap-3 rounded-xl border bg-card px-4 py-3 transition-colors',
                   isNext
-                    ? 'border-accent shadow-sm hover:bg-accent-soft'
+                    ? 'border-accent shadow-xs hover:bg-accent-soft'
                     : 'border-line hover:border-ink-soft/40',
                   lesson.status === 'done' && 'opacity-80',
                 )}

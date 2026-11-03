@@ -5,8 +5,8 @@ type Variant = 'default' | 'secondary' | 'outline' | 'ghost' | 'now';
 type Size = 'sm' | 'default' | 'lg';
 
 const variantClasses: Record<Variant, string> = {
-  default: 'bg-accent text-white hover:opacity-90 shadow-sm',
-  now: 'bg-now text-white hover:opacity-90 shadow-sm',
+  default: 'bg-accent text-white hover:opacity-90 shadow-xs',
+  now: 'bg-now text-white hover:opacity-90 shadow-xs',
   secondary: 'bg-accent-soft text-accent hover:bg-accent hover:text-white',
   outline: 'border border-line bg-card text-ink hover:bg-mono-bg',
   ghost: 'text-ink-soft hover:bg-mono-bg hover:text-ink',
@@ -30,7 +30,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       type={type}
       className={cn(
         'inline-flex items-center justify-center gap-2 rounded-lg font-medium transition-colors',
-        'focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-now',
+        'focus-visible:outline-solid focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-now',
         'disabled:pointer-events-none disabled:opacity-50',
         variantClasses[variant],
         sizeClasses[size],

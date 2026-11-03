@@ -256,12 +256,12 @@ export function ChatPanel({ lessonId, initialMessages, onExchangeDone }: ChatPan
             />
           ))}
           {streamText && (
-            <div className="max-w-[95%] self-start rounded-xl rounded-bl-sm border border-line bg-card px-3.5 py-2.5 shadow-sm">
+            <div className="max-w-[95%] self-start rounded-xl rounded-bl-sm border border-line bg-card px-3.5 py-2.5 shadow-xs">
               <Markdown variant="chat">{streamText}</Markdown>
             </div>
           )}
           {thinking && (
-            <div className="flex items-center gap-2 self-start rounded-xl border border-line bg-card px-3.5 py-2.5 text-sm text-ink-soft shadow-sm">
+            <div className="flex items-center gap-2 self-start rounded-xl border border-line bg-card px-3.5 py-2.5 text-sm text-ink-soft shadow-xs">
               <span className="flex gap-1">
                 <span className="thinking-dot h-1.5 w-1.5 rounded-full bg-accent" />
                 <span className="thinking-dot h-1.5 w-1.5 rounded-full bg-accent" />
@@ -319,13 +319,13 @@ function BubbleView({
   switch (bubble.kind) {
     case 'user':
       return (
-        <div className="max-w-[85%] self-end whitespace-pre-wrap rounded-xl rounded-br-sm bg-now px-3.5 py-2.5 text-sm text-white shadow-sm">
+        <div className="max-w-[85%] self-end whitespace-pre-wrap rounded-xl rounded-br-sm bg-now px-3.5 py-2.5 text-sm text-white shadow-xs">
           {bubble.content}
         </div>
       );
     case 'assistant':
       return (
-        <div className="max-w-[95%] self-start rounded-xl rounded-bl-sm border border-line bg-card px-3.5 py-2.5 shadow-sm">
+        <div className="max-w-[95%] self-start rounded-xl rounded-bl-sm border border-line bg-card px-3.5 py-2.5 shadow-xs">
           <Markdown variant="chat">{bubble.content}</Markdown>
         </div>
       );

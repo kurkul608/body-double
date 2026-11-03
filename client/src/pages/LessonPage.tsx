@@ -121,7 +121,7 @@ export function LessonPage() {
   const lessonPane = (
     <ScrollArea className="h-full px-4 py-6 md:px-8">
       {/* Reading column (~70ch) centered in whatever space the chat dock leaves */}
-      <div className="mx-auto w-full max-w-[46rem]">
+      <div className="mx-auto w-full max-w-184">
         {lesson.summary && lesson.status === 'done' && (
           <div className="mb-6 rounded-xl border border-accent/40 bg-accent-soft p-4">
             <p className="text-sm font-semibold text-accent">Your summary</p>
@@ -195,7 +195,7 @@ export function LessonPage() {
               tabIndex={0}
               {...chat.handleProps}
               className={cn(
-                'group relative w-px shrink-0 cursor-col-resize bg-line outline-none',
+                'group relative w-px shrink-0 cursor-col-resize bg-line outline-hidden',
                 'before:absolute before:inset-y-0 before:-left-1.5 before:-right-1.5 before:content-[""]',
                 'focus-visible:bg-accent',
                 chat.resizing && 'bg-accent',

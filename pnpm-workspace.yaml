@@ -2,8 +2,11 @@ packages:
   - server
   - client
 allowBuilds:
-  better-sqlite3: true
+  # v13 ships N-API prebuilds; its binding.gyp would trigger a needless node-gyp build.
+  better-sqlite3: false
   esbuild: true
   onnxruntime-node: true
   protobufjs: true
-  sharp: true
+overrides:
+  # GHSA-238p-pmpm-9mq7: micromark-extension-math pins katex ^0.16 (patched in 0.18.2).
+  micromark-extension-math>katex: ^0.19.1

@@ -55,7 +55,7 @@ the next small step.
 
 ## Quickstart
 
-Requirements: Node.js 20 or newer, [pnpm](https://pnpm.io/), and an Anthropic
+Requirements: Node.js 26 or newer, [pnpm](https://pnpm.io/) 12 or newer, and an Anthropic
 API key.
 
 1. Install dependencies.

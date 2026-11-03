@@ -1,11 +1,13 @@
 # syntax=docker/dockerfile:1
 # glibc base on purpose: onnxruntime-node and the Claude Agent SDK native CLI
 # do not support musl (alpine).
-FROM node:20-bookworm-slim AS build
+FROM node:26-trixie-slim AS build
 RUN apt-get update \
   && apt-get install -y --no-install-recommends python3 make g++ \
   && rm -rf /var/lib/apt/lists/*
-RUN corepack enable
+# Node 25+ no longer bundles corepack; install it so packageManager stays the
+# single source of the pnpm version.
+RUN npm install -g corepack@0.36.0 && corepack enable
 WORKDIR /src
 COPY package.json pnpm-lock.yaml pnpm-workspace.yaml ./
 COPY server/package.json server/
@@ -15,7 +17,7 @@ COPY . .
 RUN pnpm build \
   && pnpm --filter server deploy --prod --legacy /prod/server
 
-FROM node:20-bookworm-slim AS server
+FROM node:26-trixie-slim AS server
 ENV NODE_ENV=production HOST=0.0.0.0 PORT=3111
 # paths.ts resolves the project root as the parent of /app/server.
 WORKDIR /app/server
