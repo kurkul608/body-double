@@ -23,6 +23,8 @@ COPY --from=build --chown=node:node /prod/server ./
 COPY --from=build --chown=node:node /src/server/dist ./dist
 COPY --from=build --chown=node:node /src/server/src/tutor/system-prompt.md ./src/tutor/system-prompt.md
 COPY --from=build --chown=node:node /src/skills /app/skills
+# Root package.json is the app version source (read by /api/health).
+COPY --from=build --chown=node:node /src/package.json /app/package.json
 RUN mkdir -p /app/data /app/profile && chown node:node /app/data /app/profile
 USER node
 EXPOSE 3111

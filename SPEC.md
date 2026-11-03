@@ -90,7 +90,7 @@ English at the profile's level, numbered sections, checkpoints, LaTeX math).
 
 | Method | Path | Result |
 |---|---|---|
-| GET | `/api/health` | `{ ok: true }` |
+| GET | `/api/health` | `{ ok: true, version }` — `version` from the root `package.json`. |
 | GET | `/api/modules` | Phases with `lessons_done` / `lessons_total`. |
 | GET | `/api/modules/:phase/lessons` | Lesson rows of one phase. |
 | GET | `/api/lessons/:id` | Lesson: `md` (only when adapted), `adapted`, `adaptation` progress, `quiz_json`, `status`, `score`, `summary`. |

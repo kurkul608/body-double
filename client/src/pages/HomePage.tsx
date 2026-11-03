@@ -83,6 +83,10 @@ export function HomePage() {
           <ModuleCard key={m.id} module={m} />
         ))}
       </div>
+
+      <footer className="mt-10 text-center font-mono text-xs text-ink-soft">
+        Body Double v{__APP_VERSION__}
+      </footer>
     </div>
   );
 }

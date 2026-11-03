@@ -24,5 +24,9 @@
     "test": "pnpm -r test",
     "sync": "pnpm --filter server sync",
     "dev": "pnpm -r --parallel dev"
+  },
+  "devDependencies": {
+    "@commitlint/cli": "^21.2.4",
+    "@commitlint/config-conventional": "^21.2.4"
   }
 }

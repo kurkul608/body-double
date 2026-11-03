@@ -232,6 +232,13 @@ The server/client API contract is in [`SPEC.md`](SPEC.md).
    [Conventional Commits](https://www.conventionalcommits.org/) format.
 4. If you change the API, update `SPEC.md`, the server, and the client together.
 
+### Versioning
+
+- One version for the whole repo: the root `package.json` (SemVer, `0.x` for now).
+- [release-please](https://github.com/googleapis/release-please) reads Conventional Commits on `main` and opens a release PR. In `0.x`, `fix:` bumps PATCH, and `feat:` or a breaking change (`!`) bumps MINOR.
+- Merging the release PR tags `vX.Y.Z`, updates `CHANGELOG.md`, and pushes the `ghcr.io/kurkul608/body-double-server` and `-web` images (`X.Y.Z`, `X.Y`, `latest`).
+- CI runs commitlint on every pull request. The running version is in `GET /api/health` and the home page footer.
+
 ## License and credits
 
 Body Double is released under the MIT License. See [`LICENSE`](LICENSE) and

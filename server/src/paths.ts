@@ -20,6 +20,9 @@ export const dbPath = path.join(dataDir, 'learn.db');
 /** transformers.js model cache — under data/ so a Docker volume keeps it. */
 export const modelCacheDir = path.join(dataDir, 'models');
 
+/** Root package.json — the single source of the app version. */
+export const rootPackageJsonPath = path.join(projectRoot, 'package.json');
+
 export const envFile = path.join(projectRoot, '.env');
 
 /** Kept in src (not dist) so the md file needs no build-step copying. */
