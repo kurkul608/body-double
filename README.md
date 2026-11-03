@@ -164,7 +164,7 @@ git pull && docker compose up -d --build
 - **No phases or lessons on screen.**<br>
   Run `pnpm sync` (Docker: [Deploy](#deploy-with-docker) step 5).
 - **Port 3111 is busy.**<br>
-  Set `PORT` in `.env` and the same port in the proxy target in `client/vite.config.ts`.
+  Set `PORT` in `.env`. The server and the Vite proxy both read it.
 - **Docker: permission errors on `data/` or `profile/`.**<br>
   Run [Deploy](#deploy-with-docker) step 3, then `docker compose restart server`.
 
