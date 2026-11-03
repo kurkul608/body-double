@@ -102,13 +102,10 @@ export interface ProgressLogEntry {
 }
 
 /**
- * Append one row to the `## Progress log` table in profile/LEARNING.md.
- * The row goes after the last table row of that section.
- * Returns false (and writes nothing) when profile/LEARNING.md does not exist.
+ * Return `md` with one row appended to the `## Progress log` table.
+ * The row goes after the last table row of that section. Pure: no file access.
  */
-export function appendProgressLogRow(entry: ProgressLogEntry): boolean {
-  const md = readLearningMdIfExists();
-  if (md === null) return false;
+export function insertProgressLogRow(md: string, entry: ProgressLogEntry): string {
   const header = '## Progress log';
   const start = md.indexOf(header);
   if (start === -1) throw new Error('LEARNING.md has no "## Progress log" section');
@@ -121,7 +118,8 @@ export function appendProgressLogRow(entry: ProgressLogEntry): boolean {
 
   // Find end of the last table row line within the section.
   let lastRowEnd = -1;
-  const rowRe = /^\|.*\|\s*$/gm;
+  // [ \t]* (not \s*) so the match does not run past the end of the row line.
+  const rowRe = /^\|.*\|[ \t]*$/gm;
   let m: RegExpExecArray | null;
   while ((m = rowRe.exec(section)) !== null) {
     lastRowEnd = m.index + m[0].length;
@@ -132,7 +130,16 @@ export function appendProgressLogRow(entry: ProgressLogEntry): boolean {
   const row = `| ${entry.date} | ${clean(entry.lessonLabel)} | ${clean(entry.quiz)} | ${clean(entry.note)} |`;
 
   const insertAt = afterHeader + lastRowEnd;
-  const updated = md.slice(0, insertAt) + '\n' + row + md.slice(insertAt);
-  fs.writeFileSync(learningMdPath, updated);
+  return md.slice(0, insertAt) + '\n' + row + md.slice(insertAt);
+}
+
+/**
+ * Append one row to the `## Progress log` table in profile/LEARNING.md.
+ * Returns false (and writes nothing) when profile/LEARNING.md does not exist.
+ */
+export function appendProgressLogRow(entry: ProgressLogEntry): boolean {
+  const md = readLearningMdIfExists();
+  if (md === null) return false;
+  fs.writeFileSync(learningMdPath, insertProgressLogRow(md, entry));
   return true;
 }

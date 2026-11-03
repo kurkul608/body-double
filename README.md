@@ -185,7 +185,7 @@ The server/client API contract is in [`SPEC.md`](SPEC.md).
 ## Contributing
 
 1. Open an issue first for larger changes.
-2. Use pnpm only. Run `pnpm typecheck` and `pnpm build` before a pull request.
+2. Use pnpm only. Run `pnpm typecheck`, `pnpm test`, and `pnpm build` before a pull request.
 3. Write commit messages in the
    [Conventional Commits](https://www.conventionalcommits.org/) format.
 4. If you change the API, update `SPEC.md`, the server, and the client together.
